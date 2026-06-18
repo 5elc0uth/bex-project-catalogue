@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bex Project Catalogue</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon (1).png">
+    <link rel="alternate icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="assets/icons/site.webmanifest">
+    <meta name="theme-color" content="#0b1f3a">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand brand-lockup" href="index.html" aria-label="Bex Project Catalogue Home">
+                    <span class="brand-logo-wrap">
+                        <img src="assets/images/bex-logo.png" alt="Bex Innovation Labs logo" class="brand-logo">
+                    </span>
+
+                    <span class="brand-text">
+                        Project Catalogue
+                    </span>
+                </a>
+            </div>
+        </nav>
+
+        <section class="hero-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-7">
+                        <p class="eyebrow-text">Completed Project Portfolio</p>
+
+                        <h1 class="hero-title">
+                            A central catalogue of completed Bex projects.
+                        </h1>
+
+                        <p class="hero-description">
+                            Browse completed digital products, internal tools, automation projects,
+                            dashboards, and web applications delivered by the Bex team.
+                        </p>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <aside class="hero-preview-card" aria-label="Bex catalogue overview">
+                            <div class="hero-preview-header">
+                                <span class="hero-preview-dot"></span>
+                                <span class="hero-preview-title">Catalogue Overview</span>
+                            </div>
+
+                            <div class="hero-preview-body">
+                                <div class="hero-preview-feature">
+                                    <span class="feature-label">Project Evidence</span>
+                                    <strong>Descriptions, screenshots, and delivery context</strong>
+                                </div>
+
+                                <div class="hero-preview-grid">
+                                    <div class="hero-preview-mini-card">
+                                        <span>Finance</span>
+                                        <strong>Tax Tools</strong>
+                                    </div>
+
+                                    <div class="hero-preview-mini-card">
+                                        <span>People</span>
+                                        <strong>HR Systems</strong>
+                                    </div>
+
+                                    <div class="hero-preview-mini-card">
+                                        <span>Healthcare</span>
+                                        <strong>Health Apps</strong>
+                                    </div>
+
+                                    <div class="hero-preview-mini-card">
+                                        <span>Engineering</span>
+                                        <strong>GitHub Repos</strong>
+                                    </div>
+                                </div>
+
+                                <div class="hero-preview-footer">
+                                    <span>Searchable portfolio</span>
+                                    <span>Live app links</span>
+                                    <span>Structured project data</span>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <section class="catalogue-section py-5">
+            <div class="container">
+                <div class="section-heading mb-4">
+                    <h2 class="section-title">Projects</h2>
+                    <p class="section-description">
+                        Each project card includes a short description, technology stack,
+                        status, and available links.
+                    </p>
+                </div>
+
+                <div class="project-toolbar mb-4">
+                    <form class="project-search-form" role="search">
+                        <label for="projectSearchInput" class="visually-hidden">
+                            Search projects
+                        </label>
+
+                        <input type="search" id="projectSearchInput" class="form-control project-search-input"
+                            placeholder="Search by project name, category, or technology..." autocomplete="off">
+                    </form>
+
+                    <div class="project-sort-wrap">
+                        <label for="projectSortSelect" class="project-sort-label">
+                            Sort by
+                        </label>
+
+                        <select id="projectSortSelect" class="form-select project-sort-select">
+                            <option value="recommended">Recommended</option>
+                            <option value="name">Name A-Z</option>
+                            <option value="category">Category A-Z</option>
+                            <option value="status">Status</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="projectGrid" class="row g-4">
+                    <!-- Project cards will be inserted here by JavaScript -->
+                </div>
+
+                <div id="projectEmptyState" class="project-empty-state d-none">
+                    <h3>No projects found</h3>
+                    <p>Try searching with a different project name, category, or technology.</p>
+                </div>
+
+                <div class="modal fade project-preview-modal" id="projectPreviewModal" tabindex="-1"
+                    aria-labelledby="projectPreviewTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content project-preview-content">
+                            <div class="modal-header project-preview-header">
+                                <div>
+                                    <p class="project-preview-kicker" id="projectPreviewCategory">
+                                        Project Preview
+                                    </p>
+
+                                    <h2 class="modal-title project-preview-title" id="projectPreviewTitle">
+                                        Project title
+                                    </h2>
+                                </div>
+
+                                <button type="button" class="btn-close project-preview-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body project-preview-body">
+                                <img src="" alt="" id="projectPreviewImage" class="project-preview-image">
+
+                                <div class="project-preview-details">
+                                    <div class="project-preview-status-row">
+                                        <span id="projectPreviewStatus" class="project-status">
+                                            Status
+                                        </span>
+                                    </div>
+
+                                    <p id="projectPreviewDescription" class="project-preview-description">
+                                        Project description
+                                    </p>
+
+                                    <div id="projectPreviewTechList" class="tech-list"></div>
+
+                                    <div id="projectPreviewActions" class="project-actions project-preview-actions">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer py-4">
+        <div class="container">
+            <p class="mb-0">
+                &copy; <span id="currentYear"></span> Bex. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
