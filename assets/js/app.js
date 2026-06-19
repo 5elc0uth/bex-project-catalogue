@@ -8,12 +8,18 @@ const projectPreviewModal = document.getElementById("projectPreviewModal");
 const projectPreviewTitle = document.getElementById("projectPreviewTitle");
 const projectPreviewCategory = document.getElementById("projectPreviewCategory");
 const projectPreviewImage = document.getElementById("projectPreviewImage");
+const projectPreviewPrevious = document.getElementById("projectPreviewPrevious");
+const projectPreviewNext = document.getElementById("projectPreviewNext");
+const projectPreviewCounter = document.getElementById("projectPreviewCounter");
 const projectPreviewStatus = document.getElementById("projectPreviewStatus");
 const projectPreviewDescription = document.getElementById("projectPreviewDescription");
 const projectPreviewTechList = document.getElementById("projectPreviewTechList");
 const projectPreviewActions = document.getElementById("projectPreviewActions");
 
 let allProjects = [];
+let activePreviewImages = [];
+let activePreviewImageIndex = 0;
+let previewTouchStartX = 0;
 
 currentYear.textContent = new Date().getFullYear();
 
@@ -76,6 +82,36 @@ function setupProjectControls() {
 
         openProjectPreview(projectIndex);
     });
+      projectPreviewPrevious.addEventListener("click", () => {
+    showProjectPreviewImage(-1);
+  });
+
+  projectPreviewNext.addEventListener("click", () => {
+    showProjectPreviewImage(1);
+  });
+
+  projectPreviewImage.addEventListener(
+    "touchstart",
+    (event) => {
+      previewTouchStartX = event.changedTouches[0].screenX;
+    },
+    { passive: true }
+  );
+
+  projectPreviewImage.addEventListener(
+    "touchend",
+    (event) => {
+      const previewTouchEndX = event.changedTouches[0].screenX;
+      const swipeDistance = previewTouchEndX - previewTouchStartX;
+
+      if (Math.abs(swipeDistance) < 50) {
+        return;
+      }
+
+      showProjectPreviewImage(swipeDistance > 0 ? -1 : 1);
+    },
+    { passive: true }
+  );
 }
 
 function applyProjectFiltersAndSort() {
@@ -199,13 +235,17 @@ function createProjectCard(project, projectIndex) {
 
           <h3 class="project-title">${escapeHtml(project.title)}</h3>
 
-          <p class="project-description">
-            ${escapeHtml(project.shortDescription)}
-          </p>
+<p class="project-description">
+  ${escapeHtml(project.shortDescription)}
+</p>
 
-          <div class="tech-list">
-            ${technologies}
-          </div>
+<p class="project-card-hint">
+  Click screenshot for full preview
+</p>
+
+<div class="tech-list">
+  ${technologies}
+</div>
 
           <div class="project-actions">
             ${githubButton}
@@ -244,8 +284,9 @@ function openProjectPreview(projectIndex) {
 
     projectPreviewTitle.textContent = project.title;
     projectPreviewCategory.textContent = project.category;
-    projectPreviewImage.src = project.imageUrl;
-    projectPreviewImage.alt = `${project.title} screenshot`;
+activePreviewImages = getProjectPreviewImages(project);
+activePreviewImageIndex = 0;
+updateProjectPreviewImage(project.title);
     projectPreviewStatus.textContent = project.status;
     projectPreviewStatus.className = `project-status project-status--${statusClass}`;
     projectPreviewDescription.textContent = project.shortDescription;
@@ -254,6 +295,41 @@ function openProjectPreview(projectIndex) {
 
     const modal = new bootstrap.Modal(projectPreviewModal);
     modal.show();
+}
+
+function getProjectPreviewImages(project) {
+  if (Array.isArray(project.imageUrls) && project.imageUrls.length > 0) {
+    return project.imageUrls.filter((imageUrl) => imageUrl.trim() !== "");
+  }
+
+  return [project.imageUrl];
+}
+
+function updateProjectPreviewImage(projectTitle) {
+  const imageUrl = activePreviewImages[activePreviewImageIndex];
+
+  projectPreviewImage.src = imageUrl;
+  projectPreviewImage.alt = `${projectTitle} screenshot ${activePreviewImageIndex + 1}`;
+
+  projectPreviewCounter.textContent = `${activePreviewImageIndex + 1} / ${activePreviewImages.length}`;
+
+  const hasMultipleImages = activePreviewImages.length > 1;
+
+  projectPreviewPrevious.hidden = !hasMultipleImages;
+  projectPreviewNext.hidden = !hasMultipleImages;
+  projectPreviewCounter.hidden = !hasMultipleImages;
+}
+
+function showProjectPreviewImage(direction) {
+  if (activePreviewImages.length <= 1) {
+    return;
+  }
+
+  activePreviewImageIndex =
+    (activePreviewImageIndex + direction + activePreviewImages.length) %
+    activePreviewImages.length;
+
+  updateProjectPreviewImage(projectPreviewTitle.textContent);
 }
 
 function createStatusClass(status) {

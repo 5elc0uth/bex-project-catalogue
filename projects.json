@@ -12,8 +12,14 @@
     "status": "Completed",
     "repositoryUrl": "https://github.com/Bex-Labs/taxcalc-nta-2025.git",
     "liveUrl": "https://taxcalc-nta-2025.vercel.app/",
-    "imageUrl": "assets/images/taxcalc-landing.png"
+    "imageUrl": "assets/images/taxcalc-landing.png",
+    "imageUrls": [
+      "assets/images/taxcalc-landing.png",
+      "assets/images/taxcalc-indash.png"
+    ]
   },
+
+
   {
     "title": "BexHR",
     "shortDescription": "An HR and payroll management dashboard for managing employee profiles, staff records, supporting documents, payroll records, payslips, and payment export workflows in one place.",
@@ -28,8 +34,14 @@
     "status": "Completed",
     "repositoryUrl": "https://github.com/Bex-Labs/BexHR.git",
     "liveUrl": "https://app.bexhr.com/",
-    "imageUrl": "assets/images/bexhr-landing.png"
+    "imageUrl": "assets/images/bexhr-landing.png",
+    "imageUrls": [
+      "assets/images/bexhr-landing.png",
+      "assets/images/bexhr-hrdash.png"
+    ]
   },
+
+
   {
     "title": "Instadoc Metric Tracker",
     "shortDescription": "A digital healthcare platform that helps patients track key health metrics, manage appointments, and connect with doctors, while giving healthcare teams a central workspace to monitor patient activity and support care delivery.",
@@ -44,8 +56,14 @@
     "status": "Completed",
     "repositoryUrl": "https://github.com/Bex-Labs/Instadoc-metric-tracker.git",
     "liveUrl": "https://instadochealth.vercel.app/",
-    "imageUrl": "assets/images/instadoc-landing.png"
+    "imageUrl": "assets/images/instadoc-landing.png",
+    "imageUrls": [
+      "assets/images/instadoc-landing.png",
+      "assets/images/instadoc-indash.png"
+    ]
   },
+
+
   {
     "title": "WOW Surprises",
     "shortDescription": "A surprise gifting and experience-booking platform that helps customers plan memorable moments, book curated packages, request custom surprises, and connect with merchants who deliver personalised celebration experiences.",
@@ -64,10 +82,12 @@
     "liveUrl": "https://wow-suprises.vercel.app/",
     "imageUrl": "assets/images/wow-landing.png"
   },
+
+
   {
     "title": "GearShift Auto Mechanic Shop",
     "shortDescription": "A workshop management platform that helps auto repair businesses manage customers, vehicles, work orders, inventory, appointments, invoices, payments, and staff operations from one central system.",
-    "category": "Workshop Management Platform",
+    "category": "Auto Workshop",
     "technologies": [
       "HTML",
       "CSS",
@@ -82,6 +102,8 @@
     "liveUrl": "https://automek.vercel.app/",
     "imageUrl": "assets/images/gearshift-landing.png"
   },
+
+
   {
     "title": "Bex Website",
     "shortDescription": "A professional company website for Bex Innovation Labs that presents the brand, services, digital capabilities, and project identity through a clean public-facing web presence.",
@@ -90,6 +112,7 @@
       "HTML",
       "CSS",
       "JavaScript",
+      "Supabase",
       "Vercel"
     ],
     "status": "Completed",
@@ -97,6 +120,8 @@
     "liveUrl": "https://bex-lilac.vercel.app/",
     "imageUrl": "assets/images/bex-website-landing.jpeg"
   },
+
+
   {
     "title": "Petroleum Tracker",
     "shortDescription": "A fuel and petroleum tracking web application that helps users monitor fuel-related information, access pricing or availability insights, and manage petroleum data through a simple digital interface.",
@@ -112,10 +137,12 @@
     "liveUrl": "https://fuella.vercel.app/",
     "imageUrl": "assets/images/petrotracker-landing.png"
   },
+
+
   {
     "title": "BexAML Transaction Monitoring",
     "shortDescription": "An anti-money laundering compliance platform that helps Nigerian microfinance banks scan transaction data, detect suspicious activity, generate alerts, and support analyst review through a dedicated monitoring dashboard.",
-    "category": "Compliance Monitoring Platform",
+    "category": "AML Compliance",
     "technologies": [
       "HTML",
       "Bootstrap 5",
@@ -132,6 +159,8 @@
     "liveUrl": "https://traml.vercel.app/",
     "imageUrl": "assets/images/trml-landing.png"
   },
+
+
   {
     "title": "School Bus Track Pro",
     "shortDescription": "A school transport tracking platform that helps schools monitor buses in real time, manage routes, support driver operations, give parents visibility of bus location and attendance, and respond quickly to transport emergencies.",
@@ -150,6 +179,8 @@
     "liveUrl": "https://bustrack-alpha.vercel.app/",
     "imageUrl": "assets/images/bustrack-landing.png"
   },
+
+
   {
     "title": "SchoolSphere School Management",
     "shortDescription": "A school management platform that helps institutions manage admissions, classes, attendance, results, communication, finance, role-based workflows, and parent visibility from one digital workspace.",

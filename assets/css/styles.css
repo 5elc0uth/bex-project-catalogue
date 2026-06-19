@@ -879,3 +879,589 @@ body {
     transform: none;
   }
 }
+
+.project-preview-gallery {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.project-preview-gallery .project-preview-image {
+  width: 100%;
+}
+
+.project-preview-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  background-color: rgba(11, 31, 58, 0.82);
+  color: #ffffff;
+  font-size: 2rem;
+  line-height: 1;
+  transform: translateY(-50%);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.project-preview-nav:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-50%) scale(1.04);
+}
+
+.project-preview-nav--previous {
+  left: 1rem;
+}
+
+.project-preview-nav--next {
+  right: 1rem;
+}
+
+.project-preview-counter {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  background-color: rgba(11, 31, 58, 0.82);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+@media (max-width: 575.98px) {
+  .project-preview-nav {
+    width: 2.35rem;
+    height: 2.35rem;
+    font-size: 1.6rem;
+  }
+
+  .project-preview-nav--previous {
+    left: 0.5rem;
+  }
+
+  .project-preview-nav--next {
+    right: 0.5rem;
+  }
+
+  .project-preview-counter {
+    right: 0.65rem;
+    bottom: 0.65rem;
+  }
+}
+
+/* Surgical gallery arrow refinement */
+.project-preview-nav {
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background-color: rgba(11, 31, 58, 0.58);
+  color: #ffffff;
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  opacity: 0.82;
+}
+
+.project-preview-nav:hover {
+  background-color: rgba(11, 31, 58, 0.88);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.06);
+}
+
+.project-preview-nav--previous {
+  left: 0.75rem;
+}
+
+.project-preview-nav--next {
+  right: 0.75rem;
+}
+
+.project-preview-gallery:hover .project-preview-nav {
+  opacity: 1;
+}
+
+.project-preview-counter {
+  background-color: rgba(11, 31, 58, 0.62);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 575.98px) {
+  .project-preview-nav {
+    width: 2.1rem;
+    height: 2.1rem;
+    font-size: 1.4rem;
+  }
+
+  .project-preview-nav--previous {
+    left: 0.4rem;
+  }
+
+  .project-preview-nav--next {
+    right: 0.4rem;
+  }
+}
+
+/* Surgical navbar logo whitespace fix */
+.brand-logo-wrap {
+  width: 3.35rem;
+  height: 2.35rem;
+  padding: 0.18rem 0.22rem;
+  border-radius: 0.65rem;
+}
+
+.brand-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 575.98px) {
+  .brand-logo-wrap {
+    width: 3.1rem;
+    height: 2.15rem;
+    padding: 0.16rem 0.2rem;
+  }
+}
+
+/* Surgical compact project card refinement */
+.project-card {
+  border-radius: 0.9rem;
+}
+
+.project-image {
+  height: 175px;
+}
+
+.project-card-body {
+  padding: 1.2rem;
+}
+
+.project-meta {
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.project-category,
+.project-status {
+  min-height: 2rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.7rem;
+}
+
+.project-title {
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+.project-description {
+  display: -webkit-box;
+  min-height: 5.05rem;
+  margin-bottom: 0;
+  overflow: hidden;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.tech-list {
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.tech-badge {
+  padding: 0.3rem 0.55rem;
+  font-size: 0.7rem;
+}
+
+.project-actions {
+  gap: 0.6rem;
+  padding-top: 1.25rem;
+}
+
+.project-action-link {
+  min-height: 2.35rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 767.98px) {
+  .project-image {
+    height: 165px;
+  }
+
+  .project-card-body {
+    padding: 1rem;
+  }
+
+  .project-description {
+    min-height: auto;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Surgical 3-line card summary refinement */
+.project-description {
+  display: -webkit-box;
+  min-height: 4.65rem;
+  margin-bottom: 0;
+  overflow: hidden;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.project-card-hint {
+  margin: 0.55rem 0 0;
+  color: var(--color-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.project-card-hint::after {
+  content: " →";
+}
+
+.tech-list {
+  margin-top: 1rem;
+}
+
+@media (max-width: 767.98px) {
+  .project-description {
+    min-height: auto;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Surgical desktop hero height refinement */
+.hero-section {
+  padding-top: clamp(2.75rem, 5vh, 3.75rem);
+  padding-bottom: clamp(3rem, 6vh, 4.25rem);
+}
+
+.hero-title {
+  max-width: 680px;
+  font-size: clamp(2.75rem, 4.4vw, 4rem);
+  line-height: 1.06;
+}
+
+.hero-description {
+  max-width: 620px;
+  margin-top: 1rem;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.hero-preview-card {
+  width: min(100%, 430px);
+}
+
+.hero-preview-body {
+  padding: 1.1rem;
+}
+
+.hero-preview-feature {
+  padding: 0.9rem 1rem;
+}
+
+.hero-preview-mini-card {
+  padding: 0.8rem 0.85rem;
+}
+
+@media (max-width: 991.98px) {
+  .hero-section {
+    padding-top: 2.75rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.35rem, 7vw, 3.4rem);
+  }
+
+  .hero-preview-card {
+    width: min(100%, 540px);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-section {
+    padding-top: 2.25rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.1rem, 10vw, 2.8rem);
+  }
+
+  .hero-description {
+    font-size: 0.98rem;
+  }
+}
+
+/* Surgical projects section depth + card separation */
+.catalogue-section {
+  position: relative;
+  background:
+    radial-gradient(circle at top left, rgba(242, 183, 5, 0.08), transparent 28%),
+    linear-gradient(180deg, #f8fafc 0%, #f3f6fa 100%);
+}
+
+.section-heading {
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.section-title {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.section-title::after {
+  content: "";
+  display: inline-block;
+  width: 3rem;
+  height: 0.22rem;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+}
+
+.project-toolbar {
+  padding: 1rem;
+  border: 1px solid rgba(229, 231, 235, 0.85);
+  border-radius: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 18px 50px rgba(17, 24, 39, 0.06);
+  backdrop-filter: blur(10px);
+}
+
+.project-card {
+  border: 1px solid rgba(203, 213, 225, 0.82);
+  background-color: #ffffff;
+  box-shadow:
+    0 18px 42px rgba(15, 23, 42, 0.08),
+    0 2px 8px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(242, 183, 5, 0.38);
+  box-shadow:
+    0 28px 65px rgba(15, 23, 42, 0.14),
+    0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.project-image-button {
+  background:
+    linear-gradient(135deg, #eef2f7, #ffffff);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.8);
+}
+
+.project-image {
+  border-bottom: 1px solid rgba(203, 213, 225, 0.65);
+}
+
+.project-image-button:hover .project-image {
+  transform: scale(1.02);
+  filter: brightness(0.96) contrast(1.03);
+}
+
+.project-card-body {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #ffffff 72%, #fbfcff 100%);
+}
+
+.project-card-hint {
+  width: fit-content;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(18, 60, 105, 0.18);
+}
+
+@media (max-width: 767.98px) {
+  .project-toolbar {
+    padding: 0.85rem;
+    border-radius: 1rem;
+  }
+
+  .project-card:hover {
+    transform: none;
+  }
+}
+
+/* Surgical hero footer badge alignment */
+.hero-preview-footer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.hero-preview-footer span {
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 380px) {
+  .hero-preview-footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Surgical professional footer */
+.site-footer {
+  padding: 2.5rem 0 1.25rem;
+  background:
+    radial-gradient(circle at top left, rgba(242, 183, 5, 0.12), transparent 30%),
+    linear-gradient(135deg, #07182f 0%, var(--color-primary) 55%, #102f56 100%);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(180px, 0.65fr) minmax(220px, 0.8fr);
+  gap: 2rem;
+  align-items: start;
+  padding-bottom: 1.75rem;
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.footer-brand:hover {
+  color: #ffffff;
+}
+
+.footer-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.15rem;
+  height: 2.2rem;
+  padding: 0.16rem 0.2rem;
+  border-radius: 0.65rem;
+  background-color: #ffffff;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.footer-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.footer-description {
+  max-width: 520px;
+  margin: 1rem 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+}
+
+.footer-heading {
+  margin-bottom: 0.85rem;
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-links {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footer-links a {
+  width: fit-content;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 0.25rem;
+}
+
+.footer-status-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-status-list span {
+  display: inline-flex;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 991.98px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-brand-block {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .site-footer {
+    padding-top: 2rem;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
