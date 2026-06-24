@@ -85,11 +85,21 @@ if (newProjectModal && openNewProjectModalButton && closeNewProjectModalButton) 
 
 if (recycleBinModal && openRecycleBinButton && closeRecycleBinButton) {
     openRecycleBinButton.addEventListener("click", async () => {
-        await loadRecycleBinProjects();
+        if (recycleBinList) {
+            recycleBinList.innerHTML = `
+                <p class="admin-project-empty">Loading recycle bin...</p>
+            `;
+        }
+
+        if (recycleBulkActionBar) {
+            recycleBulkActionBar.classList.add("d-none");
+        }
 
         if (!recycleBinModal.open) {
             recycleBinModal.showModal();
         }
+
+        await loadRecycleBinProjects();
     });
 
     closeRecycleBinButton.addEventListener("click", () => {
@@ -254,6 +264,20 @@ function setLoginButtonLoading(isLoading) {
         : "Sign in";
 }
 
+function setRefreshButtonLoading(isLoading) {
+    if (!refreshProjectsButton) {
+        return;
+    }
+
+    refreshProjectsButton.disabled = isLoading;
+    refreshProjectsButton.classList.toggle("is-loading", isLoading);
+    refreshProjectsButton.setAttribute("aria-busy", isLoading ? "true" : "false");
+
+    refreshProjectsButton.innerHTML = isLoading
+        ? `<span class="admin-refresh-spinner" aria-hidden="true"></span><span>Refreshing</span>`
+        : "Refresh";
+}
+
 function openProjectModal() {
     if (newProjectModal && !newProjectModal.open) {
         newProjectModal.showModal();
@@ -270,7 +294,7 @@ function startAddProject() {
     }
 
     if (projectModalDescription) {
-        projectModalDescription.textContent = "Add a new project record to the live Supabase-powered catalogue.";
+        projectModalDescription.textContent = "Add a new project record.";
     }
 
     if (projectScreenshotsHelp) {
@@ -305,23 +329,10 @@ async function startEditProject(projectId) {
     editingProjectId = null;
     projectForm.reset();
 
-    if (projectModalTitle) {
-        projectModalTitle.textContent = "Loading project...";
-    }
-
-    if (projectModalDescription) {
-        projectModalDescription.textContent = "Please wait while the project details load.";
-    }
-
-    if (projectScreenshotsHelp) {
-        projectScreenshotsHelp.textContent = "Screenshots will load after the project details are ready.";
-    }
-
     saveProjectButton.textContent = "Loading...";
     saveProjectButton.setAttribute("aria-disabled", "true");
     saveProjectButton.disabled = true;
 
-    openProjectModal();
     showMessage("Loading project for editing...", "info");
 
     try {
@@ -380,6 +391,8 @@ async function startEditProject(projectId) {
         saveProjectButton.disabled = false;
         saveProjectButton.textContent = "Update project";
 
+        openProjectModal();
+
         showMessage("Project loaded. Make your changes and save.", "success");
     } catch (error) {
         console.error(error);
@@ -388,6 +401,7 @@ async function startEditProject(projectId) {
         saveProjectButton.removeAttribute("aria-disabled");
         saveProjectButton.disabled = false;
         saveProjectButton.textContent = "Save project";
+        resetProjectModal();
     }
 }
 
@@ -473,8 +487,17 @@ logoutButton.addEventListener("click", async () => {
 });
 
 refreshProjectsButton.addEventListener("click", async () => {
-    await loadAdminProjects();
-    showMessage("Project list refreshed.", "success");
+    setRefreshButtonLoading(true);
+
+    try {
+        await loadAdminProjects();
+        showMessage("Project list refreshed.", "success");
+    } catch (error) {
+        console.error(error);
+        showMessage("Project list could not be refreshed.", "error");
+    } finally {
+        setRefreshButtonLoading(false);
+    }
 });
 
 adminProjectSortSelect.addEventListener("change", () => {
@@ -627,7 +650,7 @@ projectForm.addEventListener("submit", async (event) => {
                 ...projectPayload,
                 is_active: true
             })
-            .select("id, title, category, status, repository_url, live_url, display_order, created_at, updated_at, updated_action")
+            .select("id, title, short_description, category, status, repository_url, live_url, thumbnail_url, display_order, created_at, updated_at, updated_action")
             .single();
 
         if (projectError) {
@@ -676,6 +699,7 @@ async function showAdminPanel() {
 
     loginPanel.classList.add("d-none");
     projectAdminPanel.classList.remove("d-none");
+    document.body.classList.remove("admin-auth-checking");
 
     await loadAdminProjects();
 }
@@ -683,6 +707,7 @@ async function showAdminPanel() {
 function showLoginPanel() {
     projectAdminPanel.classList.add("d-none");
     loginPanel.classList.remove("d-none");
+    document.body.classList.remove("admin-auth-checking");
 
     if (loginForm) {
         loginForm.classList.remove("d-none");
@@ -945,7 +970,7 @@ async function loadAdminProjects() {
 
     const { data: projects, error } = await window.bexSupabase
         .from("projects")
-        .select("id, title, category, status, repository_url, live_url, display_order, created_at, updated_at, updated_action")
+        .select("id, title, short_description, category, status, repository_url, live_url, thumbnail_url, display_order, created_at, updated_at, updated_action")
         .eq("is_active", true)
         .order("display_order", { ascending: true })
         .order("title", { ascending: true });
@@ -1135,9 +1160,24 @@ function renderAdminProjects(projects) {
         .map((project) => {
             const liveLink = createAdminProjectLink(project.live_url, "Live App");
             const repoLink = createAdminProjectLink(project.repository_url, "GitHub");
+            const thumbnailUrl = project.thumbnail_url || "";
+            const orderValue = getProjectDisplayOrder(project);
+
+            const thumbnailMarkup = thumbnailUrl
+                ? `
+                    <img
+                        src="${escapeHtml(thumbnailUrl)}"
+                        alt="${escapeHtml(project.title)} thumbnail"
+                        class="admin-project-thumbnail"
+                        loading="lazy"
+                    >
+                `
+                : `
+                    <div class="admin-project-thumbnail admin-project-thumbnail--empty" aria-hidden="true"></div>
+                `;
 
             return `
-        <article class="admin-project-item">
+        <article class="admin-project-item admin-project-item--media">
           <label class="admin-project-select" aria-label="Select ${escapeHtml(project.title)}">
             <input
               type="checkbox"
@@ -1147,46 +1187,64 @@ function renderAdminProjects(projects) {
             >
           </label>
 
+          <div class="admin-project-media">
+            ${thumbnailMarkup}
+          </div>
+
           <div class="admin-project-summary">
             <div class="admin-project-title-row">
               <h3>${escapeHtml(project.title)}</h3>
+            </div>
+
+            <div class="admin-project-badge-row">
+              <span class="admin-project-badge">
+                ${escapeHtml(project.category)}
+              </span>
+
               <span class="project-status project-status--${createStatusClass(project.status)}">
                 ${escapeHtml(project.status)}
               </span>
+
+              <span class="admin-project-badge admin-project-badge--order">
+                Public order ${escapeHtml(orderValue)}
+              </span>
             </div>
 
-<p>
-  ${escapeHtml(project.category)} · Order ${escapeHtml(getProjectDisplayOrder(project))}
-</p>
-<p>
-  Last updated: ${escapeHtml(formatAdminDate(project.updated_at || project.created_at))}
-  · ${escapeHtml(project.updated_action || "Existing record")}
+            <div class="admin-project-link-row">
+              ${repoLink}
+              ${liveLink}
+            </div>
+
+<p class="admin-project-updated-line">
+  Updated ${escapeHtml(formatAdminShortDate(project.updated_at || project.created_at))}
+  · ${escapeHtml(formatAdminActionLabel(project.updated_action))}
 </p>
           </div>
 
-<div class="admin-project-actions">
-    ${repoLink}
-    ${liveLink}
+          <div class="admin-project-actions admin-project-actions--icons">
+            <button
+              type="button"
+              class="admin-icon-action admin-icon-action--edit"
+              data-project-edit
+              data-project-id="${escapeHtml(project.id)}"
+              aria-label="Edit ${escapeHtml(project.title)}"
+              title="Edit project"
+            >
+              <i class="bi bi-pencil" aria-hidden="true"></i>
+            </button>
 
-    <button
-      type="button"
-      class="admin-small-link admin-edit-button"
-      data-project-edit
-      data-project-id="${escapeHtml(project.id)}"
-    >
-      Edit
-    </button>
-
-<button
-  type="button"
-  class="admin-danger-button"
-  data-project-deactivate
-  data-project-id="${escapeHtml(project.id)}"
-  data-project-title="${escapeHtml(project.title)}"
->
-  Move to Bin
-</button>
-</div>
+            <button
+              type="button"
+              class="admin-icon-action admin-icon-action--bin"
+              data-project-deactivate
+              data-project-id="${escapeHtml(project.id)}"
+              data-project-title="${escapeHtml(project.title)}"
+              aria-label="Move ${escapeHtml(project.title)} to bin"
+              title="Move to Bin"
+            >
+              <i class="bi bi-trash3" aria-hidden="true"></i>
+            </button>
+          </div>
         </article>
       `;
         })
@@ -1821,6 +1879,39 @@ function formatAdminDate(value) {
     });
 }
 
+function formatAdminShortDate(value) {
+    if (!value) {
+        return "Unknown";
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return "Unknown";
+    }
+
+    return date.toLocaleString(undefined, {
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
+function formatAdminActionLabel(value) {
+    const action = String(value || "Existing record").trim();
+
+    if (action.startsWith("Bulk status changed to ")) {
+        return action.replace("Bulk status changed to ", "Status → ");
+    }
+
+    if (action.startsWith("Bulk moved to bin")) {
+        return "Moved to bin";
+    }
+
+    return action;
+}
+
 function escapeHtml(value) {
     return String(value)
         .replaceAll("&", "&amp;")
@@ -1931,6 +2022,7 @@ async function handleAdminPasswordRecoveryRedirect() {
 function showPasswordResetPanel() {
     projectAdminPanel.classList.add("d-none");
     loginPanel.classList.remove("d-none");
+    document.body.classList.remove("admin-auth-checking");
 
     if (loginForm) {
         loginForm.classList.add("d-none");

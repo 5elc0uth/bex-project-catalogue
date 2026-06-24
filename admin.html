@@ -13,20 +13,20 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
-<body class="admin-page">
+<body class="admin-page admin-auth-checking">
     <main class="admin-shell">
         <section class="admin-panel">
             <div class="admin-header">
-                <a class="admin-brand" href="index.html" aria-label="Back to Bex Project Catalogue">
-                    <span class="footer-logo-wrap">
-                        <img src="assets/images/bex-logo.png" alt="Bex Innovation Labs logo" class="footer-logo">
+                <a class="admin-brand admin-brand--logo-only" href="index.html"
+                    aria-label="Back to Bex Project Catalogue">
+                    <span class="footer-logo-wrap admin-header-logo-wrap">
+                        <img src="assets/images/bex-logo.png" alt="Bex Innovation Labs logo"
+                            class="footer-logo admin-header-logo">
                     </span>
-
-                    <span>Bex Catalogue System</span>
                 </a>
 
                 <p class="admin-subtitle">
-                    Manage project catalogue records, screenshots, links, and delivery status.
+                    Manage projects, screenshots, links, and delivery status.
                 </p>
             </div>
 
@@ -73,16 +73,16 @@
                                 </div>
                             </div>
 
-<div class="admin-login-options-row">
-    <label class="admin-login-remember">
-        <input type="checkbox" id="rememberAdminEmail">
-        <span>Remember me</span>
-    </label>
+                            <div class="admin-login-options-row">
+                                <label class="admin-login-remember">
+                                    <input type="checkbox" id="rememberAdminEmail">
+                                    <span>Remember me</span>
+                                </label>
 
-    <button type="button" id="forgotPasswordButton" class="admin-login-forgot-button">
-        Forgot password?
-    </button>
-</div>
+                                <button type="button" id="forgotPasswordButton" class="admin-login-forgot-button">
+                                    Forgot password?
+                                </button>
+                            </div>
 
                             <button type="submit" class="project-action-link project-action-link--primary">
                                 Sign in
@@ -130,297 +130,329 @@
                 </div>
             </section>
 
-            <section id="projectAdminPanel" class="admin-card d-none">
-                <div class="admin-card-heading">
-                    <div>
-                        <h1 class="admin-dashboard-title">
-                            <span class="admin-dashboard-icon" aria-hidden="true">
-                                <i class="bi bi-person-gear"></i>
-                            </span>
+            <section id="projectAdminPanel" class="admin-dashboard-shell d-none">
+                <aside class="admin-dashboard-sidebar" aria-label="Admin dashboard navigation">
+                    <div class="admin-sidebar-brand-card">
+                        <span class="admin-sidebar-logo-wrap">
+                            <img src="assets/images/bex-logo.png" alt="Bex Innovation Labs logo"
+                                class="admin-sidebar-logo">
+                        </span>
 
-                            <span>Catalogue admin</span>
-                        </h1>
-                        <p>
-                            Manage project records, screenshots, links, and project visibility.
-                        </p>
+                        <div>
+                            <!-- <strong>BEX</strong> -->
+                            <strong>Admin</strong>
+                            <span>Dashboard</span>
+                        </div>
                     </div>
 
-                    <button id="logoutButton" type="button" class="project-action-link project-action-link--secondary">
-                        <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
-                        <span>Sign out</span>
-                    </button>
-                </div>
+                    <nav class="admin-sidebar-nav" aria-label="Catalogue actions">
+                        <span class="admin-sidebar-section-label">Catalogue</span>
 
-                <div id="adminMessage" class="admin-message d-none" role="alert"></div>
+                        <a href="#adminProjectList" class="admin-sidebar-link is-active">
+                            <i class="bi bi-kanban" aria-hidden="true"></i>
+                            <span>Projects</span>
+                        </a>
 
-
-                <div class="admin-command-bar" aria-label="Catalogue admin actions">
-                    <button type="button" id="openNewProjectModalButton"
-                        class="project-action-link project-action-link--primary">
-                        <i class="bi bi-plus-lg" aria-hidden="true"></i>
-                        <span>New Project</span>
-                    </button>
-
-                    <a href="index.html" class="project-action-link project-action-link--secondary">
-                        <i class="bi bi-card-list" aria-hidden="true"></i>
-                        <span>View Catalogue</span>
-                    </a>
-
-                    <button type="button" id="openRecycleBinButton"
-                        class="project-action-link project-action-link--secondary">
-                        <i class="bi bi-trash3" aria-hidden="true"></i>
-                        <span>Recycle Bin</span>
-                    </button>
-                </div>
-
-                <div class="admin-stats-grid" aria-label="Catalogue admin summary">
-                    <article class="admin-stat-card">
-                        <span class="admin-stat-label">Active Projects</span>
-                        <strong id="adminStatsActive">0</strong>
-                    </article>
-
-                    <article class="admin-stat-card">
-                        <span class="admin-stat-label">Completed</span>
-                        <strong id="adminStatsCompleted">0</strong>
-                    </article>
-
-                    <article class="admin-stat-card">
-                        <span class="admin-stat-label">In Progress</span>
-                        <strong id="adminStatsInProgress">0</strong>
-                    </article>
-
-                    <article class="admin-stat-card admin-stat-card--bin">
-                        <span class="admin-stat-label">Recycle Bin</span>
-                        <strong id="adminStatsBin">0</strong>
-                    </article>
-                </div>
-
-                <dialog id="newProjectModal" class="admin-project-dialog">
-                    <div class="admin-project-dialog-header">
-                        <div>
-                            <h2 id="projectModalTitle">Add project</h2>
-                            <p id="projectModalDescription">Add a new project record to the live
-                                Supabase-powered
-                                catalogue.</p>
-                        </div>
-
-                        <button type="button" id="closeNewProjectModalButton" class="admin-project-dialog-close"
-                            aria-label="Close add project modal">
-                            <i class="bi bi-x-lg" aria-hidden="true"></i>
+                        <button type="button" id="openNewProjectModalButton" class="admin-sidebar-link">
+                            <i class="bi bi-plus-square" aria-hidden="true"></i>
+                            <span>Add Project</span>
                         </button>
-                    </div>
 
-                    <form id="projectForm" class="admin-form admin-form-grid">
-                        <div>
-                            <label for="projectTitle">Project title</label>
-                            <input type="text" id="projectTitle" class="form-control" placeholder="Example: BexHR"
-                                required>
-                        </div>
+                        <a href="index.html" class="admin-sidebar-link">
+                            <i class="bi bi-card-list" aria-hidden="true"></i>
+                            <span>View Catalogue</span>
+                        </a>
 
-                        <div>
-                            <label for="projectCategory">Category</label>
-                            <input type="text" id="projectCategory" class="form-control"
-                                placeholder="Example: HR Platform" required>
-                        </div>
-
-                        <div>
-                            <label for="projectStatus">Status</label>
-                            <select id="projectStatus" class="form-select" required>
-                                <option value="Completed">Completed</option>
-                                <option value="In Progress">In Progress</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="projectDisplayOrder">Display order</label>
-                            <input type="number" id="projectDisplayOrder" class="form-control" value="100" min="1"
-                                step="1" required>
-                            <small>Use this as a feature priority. Lower numbers appear first; projects with
-                                the same
-                                number sort by title.</small>
-                        </div>
-
-                        <div class="admin-form-full">
-                            <label for="projectDescription">Short description</label>
-                            <textarea id="projectDescription" class="form-control" rows="4"
-                                placeholder="Write a clear project summary." required></textarea>
-                        </div>
-
-                        <div>
-                            <label for="projectRepositoryUrl">GitHub repository URL</label>
-                            <input type="url" id="projectRepositoryUrl" class="form-control"
-                                placeholder="https://github.com/...">
-                        </div>
-
-                        <div>
-                            <label for="projectLiveUrl">Live app URL</label>
-                            <input type="url" id="projectLiveUrl" class="form-control"
-                                placeholder="https://example.vercel.app/">
-                        </div>
-
-                        <div class="admin-form-full">
-                            <label for="projectTechnologies">Technologies</label>
-                            <input type="text" id="projectTechnologies" class="form-control"
-                                placeholder="HTML, CSS, JavaScript, Supabase" required>
-                            <small>Separate each technology with a comma.</small>
-                        </div>
-
-                        <div class="admin-form-full">
-                            <label for="projectScreenshots">Project screenshots</label>
-                            <input type="file" id="projectScreenshots" class="form-control"
-                                accept="image/png,image/jpeg,image/webp" multiple>
-                            <small id="projectScreenshotsHelp">Upload up to 8 screenshots in PNG, JPG, JPEG,
-                                or WebP.
-                                Use names like 01-home, 02-dashboard, 03-report to control gallery order.
-                                The first
-                                image becomes the card thumbnail.</small>
-                        </div>
-
-                        <div class="admin-form-full admin-actions">
-                            <button id="saveProjectButton" type="submit"
-                                class="project-action-link project-action-link--primary">
-                                Save project
-                            </button>
-
-                            <button type="button" id="cancelNewProjectButton"
-                                class="project-action-link project-action-link--secondary">
-                                <i class="bi bi-x-circle" aria-hidden="true"></i>
-                                <span>Cancel</span>
-                            </button>
-                        </div>
-                    </form>
-                </dialog>
-
-                <dialog id="recycleBinModal" class="admin-project-dialog admin-project-dialog--compact">
-                    <div class="admin-project-dialog-header">
-                        <div>
-                            <h2>Recycle Bin</h2>
-                            <p>Restore hidden projects or permanently delete records that are no longer
-                                needed.</p>
-                        </div>
-
-                        <button type="button" id="closeRecycleBinButton" class="admin-project-dialog-close"
-                            aria-label="Close recycle bin modal">
-                            <i class="bi bi-x-lg" aria-hidden="true"></i>
+                        <button type="button" id="openRecycleBinButton"
+                            class="admin-sidebar-link admin-sidebar-link--danger">
+                            <i class="bi bi-trash3" aria-hidden="true"></i>
+                            <span>Recycle Bin</span>
                         </button>
+                    </nav>
+
+                    <div class="admin-sidebar-mini-status" aria-label="Dashboard status: live and ready">
+                        <span aria-hidden="true"></span>
+                        <strong>Live</strong>
                     </div>
+                </aside>
 
-                    <div class="admin-dialog-body">
-                        <div id="recycleBulkActionBar" class="admin-bulk-action-bar d-none"
-                            aria-label="Recycle bin bulk actions">
-                            <label class="admin-bulk-select-all">
-                                <input type="checkbox" id="selectRecycleBinProjectsCheckbox">
-                                <span>Select recycle bin projects</span>
-                            </label>
-
-                            <span id="selectedRecycleProjectsCount" class="admin-bulk-count">0
-                                selected</span>
-
-                            <button type="button" id="bulkRestoreProjectsButton"
-                                class="admin-small-link admin-restore-button">
-                                Restore Selected
-                            </button>
-
-                            <button type="button" id="clearSelectedRecycleProjectsButton" class="admin-small-link">
-                                Clear Selection
-                            </button>
-                        </div>
-
-                        <div id="recycleBinList" class="admin-recycle-list">
-                            <p class="admin-project-empty">Loading recycle bin...</p>
-                        </div>
-                    </div>
-                </dialog>
-
-
-                <div class="admin-project-manager">
-                    <div class="admin-project-manager-header">
+                <div class="admin-dashboard-content">
+                    <div class="admin-dashboard-topbar">
                         <div>
-                            <h2>Current projects</h2>
+                            <h1 class="admin-dashboard-title">
+                                <span class="admin-dashboard-icon" aria-hidden="true">
+                                    <i class="bi bi-kanban"></i>
+                                </span>
+
+                                <span>Projects</span>
+                            </h1>
+
                             <p>
-                                Manage active catalogue records, track in-progress work, search projects,
-                                adjust the
-                                list view, and move records to the recycle bin when they should no longer
-                                appear
-                                publicly.
+                                Manage project records, screenshots, links, and delivery status.
                             </p>
                         </div>
-                    </div>
 
-                    <div class="admin-project-controls">
-                        <div class="admin-project-search-wrap">
-                            <label for="adminProjectSearchInput" class="visually-hidden">
-                                Search admin projects
-                            </label>
-
-                            <input type="search" id="adminProjectSearchInput"
-                                class="form-control admin-project-search-input"
-                                placeholder="Search by project name, category, or status..." autocomplete="off">
-                        </div>
-
-                        <div class="admin-project-sort-wrap">
-                            <label for="adminProjectSortSelect">Sort by</label>
-
-                            <select id="adminProjectSortSelect" class="form-select admin-project-sort-select">
-                                <option value="recommended">Needs attention</option>
-                                <option value="publicOrder">Public order</option>
-                                <option value="updated">Recently updated</option>
-                                <option value="name">Name A-Z</option>
-                            </select>
-                        </div>
-
-                        <div class="admin-view-toggle" aria-label="Project list view options">
-                            <button type="button" id="projectListViewButton" class="admin-view-button is-active">
-                                List
-                            </button>
-
-                            <button type="button" id="projectGridViewButton" class="admin-view-button">
-                                Grid
-                            </button>
-                        </div>
-
-                        <button type="button" id="refreshProjectsButton"
+                        <button id="logoutButton" type="button"
                             class="project-action-link project-action-link--secondary">
-                            Refresh
+                            <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                            <span>Sign out</span>
                         </button>
                     </div>
 
-                    <div id="adminBulkActionBar" class="admin-bulk-action-bar d-none" aria-label="Bulk project actions">
-                        <label class="admin-bulk-select-all">
-                            <input type="checkbox" id="selectVisibleProjectsCheckbox">
-                            <span>Select visible projects</span>
-                        </label>
+                    <div class="admin-card admin-dashboard-card admin-dashboard-main">
 
-                        <span id="selectedProjectsCount" class="admin-bulk-count">0 selected</span>
+                        <div id="adminMessage" class="admin-message d-none" role="alert"></div>
 
-                        <label for="bulkProjectStatusSelect" class="visually-hidden">
-                            Bulk project status
-                        </label>
+                        <div class="admin-stats-grid" aria-label="Catalogue admin summary">
+                            <article class="admin-stat-card">
+                                <span class="admin-stat-label">Active Projects</span>
+                                <strong id="adminStatsActive">0</strong>
+                            </article>
 
-                        <select id="bulkProjectStatusSelect" class="form-select admin-project-sort-select"
-                            aria-label="Bulk project status">
-                            <option value="Completed">Completed</option>
-                            <option value="In Progress">In Progress</option>
-                        </select>
+                            <article class="admin-stat-card">
+                                <span class="admin-stat-label">Completed</span>
+                                <strong id="adminStatsCompleted">0</strong>
+                            </article>
 
-                        <button type="button" id="bulkUpdateStatusButton" class="admin-small-link">
-                            Update Status
-                        </button>
+                            <article class="admin-stat-card">
+                                <span class="admin-stat-label">In Progress</span>
+                                <strong id="adminStatsInProgress">0</strong>
+                            </article>
 
-                        <button type="button" id="bulkMoveToBinButton" class="admin-danger-button">
-                            Move Selected to Bin
-                        </button>
+                            <article class="admin-stat-card admin-stat-card--bin">
+                                <span class="admin-stat-label">Recycle Bin</span>
+                                <strong id="adminStatsBin">0</strong>
+                            </article>
+                        </div>
 
-                        <button type="button" id="clearSelectedProjectsButton" class="admin-small-link">
-                            Clear Selection
-                        </button>
-                    </div>
+                        <dialog id="newProjectModal" class="admin-project-dialog">
+                            <div class="admin-project-dialog-header">
+                                <div>
+                                    <h2 id="projectModalTitle">Add project</h2>
+                                    <p id="projectModalDescription">Add a new project record to the live
+                                        Supabase-powered
+                                        catalogue.</p>
+                                </div>
 
-                    <div id="adminProjectList" class="admin-project-list admin-project-list--list">
-                        <p class="admin-project-empty">Loading projects...</p>
+                                <button type="button" id="closeNewProjectModalButton" class="admin-project-dialog-close"
+                                    aria-label="Close add project modal">
+                                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <form id="projectForm" class="admin-form admin-form-grid">
+                                <div>
+                                    <label for="projectTitle">Project title</label>
+                                    <input type="text" id="projectTitle" class="form-control"
+                                        placeholder="Example: BexHR" required>
+                                </div>
+
+                                <div>
+                                    <label for="projectCategory">Category</label>
+                                    <input type="text" id="projectCategory" class="form-control"
+                                        placeholder="Example: HR Platform" required>
+                                </div>
+
+                                <div>
+                                    <label for="projectStatus">Status</label>
+                                    <select id="projectStatus" class="form-select" required>
+                                        <option value="Completed">Completed</option>
+                                        <option value="In Progress">In Progress</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="projectDisplayOrder">Display order</label>
+                                    <input type="number" id="projectDisplayOrder" class="form-control" value="100"
+                                        min="1" step="1" required>
+                                    <small>Use this as a feature priority. Lower numbers appear first; projects with
+                                        the same
+                                        number sort by title.</small>
+                                </div>
+
+                                <div class="admin-form-full">
+                                    <label for="projectDescription">Short description</label>
+                                    <textarea id="projectDescription" class="form-control" rows="4"
+                                        placeholder="Write a clear project summary." required></textarea>
+                                </div>
+
+                                <div>
+                                    <label for="projectRepositoryUrl">GitHub repository URL</label>
+                                    <input type="url" id="projectRepositoryUrl" class="form-control"
+                                        placeholder="https://github.com/...">
+                                </div>
+
+                                <div>
+                                    <label for="projectLiveUrl">Live app URL</label>
+                                    <input type="url" id="projectLiveUrl" class="form-control"
+                                        placeholder="https://example.vercel.app/">
+                                </div>
+
+                                <div class="admin-form-full">
+                                    <label for="projectTechnologies">Technologies</label>
+                                    <input type="text" id="projectTechnologies" class="form-control"
+                                        placeholder="HTML, CSS, JavaScript, Supabase" required>
+                                    <small>Separate each technology with a comma.</small>
+                                </div>
+
+                                <div class="admin-form-full">
+                                    <label for="projectScreenshots">Project screenshots</label>
+                                    <input type="file" id="projectScreenshots" class="form-control"
+                                        accept="image/png,image/jpeg,image/webp" multiple>
+                                    <small id="projectScreenshotsHelp">Upload up to 8 screenshots in PNG, JPG, JPEG,
+                                        or WebP.
+                                        Use names like 01-home, 02-dashboard, 03-report to control gallery order.
+                                        The first
+                                        image becomes the card thumbnail.</small>
+                                </div>
+
+                                <div class="admin-form-full admin-actions">
+                                    <button id="saveProjectButton" type="submit"
+                                        class="project-action-link project-action-link--primary">
+                                        Save project
+                                    </button>
+
+                                    <button type="button" id="cancelNewProjectButton"
+                                        class="project-action-link project-action-link--secondary">
+                                        <i class="bi bi-x-circle" aria-hidden="true"></i>
+                                        <span>Cancel</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </dialog>
+
+                        <dialog id="recycleBinModal" class="admin-project-dialog admin-project-dialog--compact">
+                            <div class="admin-project-dialog-header">
+                                <div>
+                                    <h2>Recycle Bin</h2>
+                                    <p>Restore hidden projects or permanently delete records that are no longer
+                                        needed.</p>
+                                </div>
+
+                                <button type="button" id="closeRecycleBinButton" class="admin-project-dialog-close"
+                                    aria-label="Close recycle bin modal">
+                                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <div class="admin-dialog-body">
+                                <div id="recycleBulkActionBar" class="admin-bulk-action-bar d-none"
+                                    aria-label="Recycle bin bulk actions">
+                                    <label class="admin-bulk-select-all">
+                                        <input type="checkbox" id="selectRecycleBinProjectsCheckbox">
+                                        <span>Select recycle bin projects</span>
+                                    </label>
+
+                                    <span id="selectedRecycleProjectsCount" class="admin-bulk-count">0
+                                        selected</span>
+
+                                    <button type="button" id="bulkRestoreProjectsButton"
+                                        class="admin-small-link admin-restore-button">
+                                        Restore Selected
+                                    </button>
+
+                                    <button type="button" id="clearSelectedRecycleProjectsButton"
+                                        class="admin-small-link">
+                                        Clear Selection
+                                    </button>
+                                </div>
+
+                                <div id="recycleBinList" class="admin-recycle-list">
+                                    <p class="admin-project-empty">Loading recycle bin...</p>
+                                </div>
+                            </div>
+                        </dialog>
+
+
+                        <div class="admin-project-manager">
+                            <div class="admin-project-manager-header">
+                                <div>
+                                    <h2>Current projects</h2>
+                                    <p>
+                                        Manage active records, track in-progress work, search projects,
+                                        adjust the list view, and move records to the recycle bin when they should
+                                        no longer appear publicly.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="admin-project-controls">
+                                <div class="admin-project-search-wrap">
+                                    <label for="adminProjectSearchInput" class="visually-hidden">
+                                        Search admin projects
+                                    </label>
+
+                                    <input type="search" id="adminProjectSearchInput"
+                                        class="form-control admin-project-search-input"
+                                        placeholder="Search by project name, category, or status..." autocomplete="off">
+                                </div>
+
+                                <div class="admin-project-sort-wrap">
+                                    <label for="adminProjectSortSelect">Sort by</label>
+
+                                    <select id="adminProjectSortSelect" class="form-select admin-project-sort-select">
+                                        <option value="recommended">Needs attention</option>
+                                        <option value="publicOrder">Public order</option>
+                                        <option value="updated">Recently updated</option>
+                                        <option value="name">Name A-Z</option>
+                                    </select>
+                                </div>
+
+                                <div class="admin-view-toggle" aria-label="Project list view options">
+                                    <button type="button" id="projectListViewButton"
+                                        class="admin-view-button is-active">
+                                        List
+                                    </button>
+
+                                    <button type="button" id="projectGridViewButton" class="admin-view-button">
+                                        Grid
+                                    </button>
+                                </div>
+
+                                <button type="button" id="refreshProjectsButton"
+                                    class="project-action-link project-action-link--secondary">
+                                    Refresh
+                                </button>
+                            </div>
+
+                            <div id="adminBulkActionBar" class="admin-bulk-action-bar d-none"
+                                aria-label="Bulk project actions">
+                                <label class="admin-bulk-select-all">
+                                    <input type="checkbox" id="selectVisibleProjectsCheckbox">
+                                    <span>Select visible projects</span>
+                                </label>
+
+                                <span id="selectedProjectsCount" class="admin-bulk-count">0 selected</span>
+
+                                <label for="bulkProjectStatusSelect" class="visually-hidden">
+                                    Bulk project status
+                                </label>
+
+                                <select id="bulkProjectStatusSelect" class="form-select admin-project-sort-select"
+                                    aria-label="Bulk project status">
+                                    <option value="Completed">Completed</option>
+                                    <option value="In Progress">In Progress</option>
+                                </select>
+
+                                <button type="button" id="bulkUpdateStatusButton" class="admin-small-link">
+                                    Update Status
+                                </button>
+
+                                <button type="button" id="bulkMoveToBinButton" class="admin-danger-button">
+                                    Move Selected to Bin
+                                </button>
+
+                                <button type="button" id="clearSelectedProjectsButton" class="admin-small-link">
+                                    Clear Selection
+                                </button>
+                            </div>
+
+                            <div id="adminProjectList" class="admin-project-list admin-project-list--list">
+                                <p class="admin-project-empty">Loading projects...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
-        </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

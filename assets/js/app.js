@@ -220,9 +220,9 @@ async function loadProjectsFromSupabase() {
   });
 
   return projects.map((project) => {
-const thumbnailUrl =
-  project.thumbnail_url ||
-  PROJECT_PLACEHOLDER_IMAGE;
+    const thumbnailUrl =
+      project.thumbnail_url ||
+      PROJECT_PLACEHOLDER_IMAGE;
 
     return {
       id: project.id,
@@ -281,7 +281,7 @@ function setupProjectControls() {
 
     openProjectPreview(projectIndex);
   });
-    projectGrid.addEventListener(
+  projectGrid.addEventListener(
     "error",
     (event) => {
       if (!event.target.classList.contains("project-image")) {
@@ -542,19 +542,19 @@ async function openProjectPreview(projectIndex) {
     .map((technology) => `<span class="tech-badge">${escapeHtml(technology)}</span>`)
     .join("");
 
-const githubButton = createProjectLink(
-  project.repositoryUrl,
-  "GitHub",
-  "Code unavailable",
-  "project-action-link project-action-link--secondary"
-);
+  const githubButton = createProjectLink(
+    project.repositoryUrl,
+    "GitHub",
+    "Code unavailable",
+    "project-action-link project-action-link--secondary"
+  );
 
-const liveButton = createProjectLink(
-  project.liveUrl,
-  "View App",
-  "App unavailable",
-  "project-action-link project-action-link--primary"
-);
+  const liveButton = createProjectLink(
+    project.liveUrl,
+    "View App",
+    "App unavailable",
+    "project-action-link project-action-link--primary"
+  );
 
   const statusClass = createStatusClass(project.status);
 
@@ -581,16 +581,16 @@ async function loadProjectScreenshotsForPreview(project) {
     return;
   }
 
-if (projectScreenshotCache.has(project.id)) {
-  project.imageUrls = projectScreenshotCache.get(project.id);
-  preloadProjectImages(project.imageUrls);
+  if (projectScreenshotCache.has(project.id)) {
+    project.imageUrls = projectScreenshotCache.get(project.id);
+    preloadProjectImages(project.imageUrls);
 
-  project.screenshotsLoaded = true;
-  activePreviewImages = getProjectPreviewImages(project);
-  activePreviewImageIndex = 0;
-  updateProjectPreviewImage(project.title);
-  return;
-}
+    project.screenshotsLoaded = true;
+    activePreviewImages = getProjectPreviewImages(project);
+    activePreviewImageIndex = 0;
+    updateProjectPreviewImage(project.title);
+    return;
+  }
 
   try {
     const { data: screenshots, error } = await window.bexSupabase
@@ -609,13 +609,13 @@ if (projectScreenshotCache.has(project.id)) {
 
     const resolvedImageUrls = imageUrls.length > 0 ? imageUrls : [project.imageUrl];
 
-projectScreenshotCache.set(project.id, resolvedImageUrls);
-preloadProjectImages(resolvedImageUrls);
+    projectScreenshotCache.set(project.id, resolvedImageUrls);
+    preloadProjectImages(resolvedImageUrls);
 
-project.imageUrls = resolvedImageUrls;
-project.screenshotsLoaded = true;
+    project.imageUrls = resolvedImageUrls;
+    project.screenshotsLoaded = true;
 
-activePreviewImages = getProjectPreviewImages(project);
+    activePreviewImages = getProjectPreviewImages(project);
     activePreviewImageIndex = 0;
     updateProjectPreviewImage(project.title);
   } catch (error) {
