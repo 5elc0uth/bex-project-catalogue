@@ -182,7 +182,7 @@
 
 
   {
-    "title": "SchoolSphere School Management",
+    "title": "School Management Web App",
     "shortDescription": "A school management platform that helps institutions manage admissions, classes, attendance, results, communication, finance, role-based workflows, and parent visibility from one digital workspace.",
     "category": "School Management Platform",
     "technologies": [
@@ -193,6 +193,11 @@
     "status": "In Progress",
     "repositoryUrl": "https://github.com/Bex-Labs/School-management-web-app.git",
     "liveUrl": "#",
-    "imageUrl": "assets/images/smp-landing.png"
+"imageUrl": "assets/images/schoolmgt-landing.jpeg",
+  "imageUrls": [
+    "assets/images/schoolmgt-landing.jpeg",
+    "assets/images/schoolmgt-inn 01.jpeg",
+    "assets/images/schoolmgt-inn 02.png"
+  ]
   }
 ]
