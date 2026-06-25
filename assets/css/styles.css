@@ -7380,3 +7380,232 @@ body {
   font-weight: 900;
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
 }
+
+/* Surgical login fix: reserve message space to stop form jump */
+.admin-login-message {
+  min-height: 3.15rem;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.admin-login-message--reserved {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.admin-login-message--success,
+.admin-login-message--error,
+.admin-login-message--info {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Surgical login fix: compact desktop login shell at 100% zoom */
+@media (min-width: 992px) {
+  .admin-page:has(#loginPanel.admin-login-shell:not(.d-none)) .admin-shell {
+    padding: 1rem;
+  }
+
+  .admin-page:has(#loginPanel.admin-login-shell:not(.d-none)) .admin-panel {
+    width: min(100%, 1000px);
+  }
+
+  #loginPanel.admin-login-shell {
+    width: min(100%, 980px);
+    max-width: 980px !important;
+    min-height: 520px;
+    grid-template-columns: minmax(0, 46%) minmax(0, 54%);
+  }
+
+  .admin-login-art-panel,
+  .admin-login-art-image {
+    min-height: 520px;
+  }
+
+  .admin-login-form-panel {
+    min-height: 520px;
+    padding: 2rem 2.75rem;
+  }
+
+  .admin-login-form-inner {
+    width: min(100%, 405px);
+  }
+
+  #loginPanel .admin-login-form-inner h1 {
+    margin-bottom: 0.55rem;
+    font-size: clamp(1.85rem, 2.4vw, 2.35rem);
+  }
+
+  #loginPanel .admin-login-form-inner > p:not(.admin-login-kicker):not(.admin-login-security-note) {
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  #loginPanel .admin-form {
+    gap: 0.95rem;
+  }
+
+  #loginPanel .admin-form label {
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+  }
+
+  .admin-login-message {
+    min-height: 2.75rem;
+    margin-bottom: 0.85rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .admin-login-input-wrap,
+  .admin-login-password-toggle,
+  #loginPanel .admin-login-input-wrap .form-control {
+    min-height: 2.85rem;
+  }
+
+  #loginPanel .project-action-link--primary {
+    min-height: 2.9rem;
+    margin-top: 0.15rem;
+  }
+
+  .admin-login-security-note {
+    margin-top: 1.1rem;
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+}
+
+/* Surgical admin polish: quiet overview label before stats */
+.admin-section-kicker {
+  padding: 1.1rem 1.5rem 0;
+  background:
+    radial-gradient(circle at top right, rgba(242, 183, 5, 0.07), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.admin-section-kicker span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #667085;
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.admin-section-kicker span::after {
+  content: "";
+  width: 2.4rem;
+  height: 0.18rem;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+}
+
+.admin-dashboard-card .admin-stats-grid {
+  padding-top: 0.75rem;
+}
+
+/* Surgical login fix: compact right-side login form */
+@media (min-width: 992px) {
+  .admin-login-form-panel {
+    padding: 1.75rem 2.5rem;
+  }
+
+  .admin-login-form-inner {
+    width: min(100%, 380px);
+  }
+
+  #loginPanel .admin-login-form-inner h1 {
+    margin-bottom: 0.45rem;
+    font-size: clamp(1.8rem, 2.2vw, 2.2rem);
+    line-height: 1.02;
+  }
+
+  #loginPanel .admin-login-form-inner > p:not(.admin-login-kicker):not(.admin-login-security-note) {
+    max-width: 360px;
+    margin-bottom: 0.95rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .admin-login-message {
+    min-height: 2.35rem;
+    margin-bottom: 0.65rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  #loginPanel .admin-form {
+    gap: 0.78rem;
+  }
+
+  #loginPanel .admin-form label {
+    margin-bottom: 0.28rem;
+    font-size: 0.78rem;
+  }
+
+  .admin-login-input-wrap,
+  .admin-login-password-toggle,
+  #loginPanel .admin-login-input-wrap .form-control {
+    min-height: 2.65rem;
+  }
+
+  #loginPanel .admin-login-input-wrap .form-control {
+    font-size: 0.9rem;
+  }
+
+  .admin-login-options-row {
+    margin-top: 0.05rem;
+  }
+
+  .admin-login-remember,
+  .admin-login-forgot-button {
+    font-size: 0.8rem;
+  }
+
+  #loginPanel .project-action-link--primary {
+    min-height: 2.75rem;
+    margin-top: 0.1rem;
+    font-size: 0.9rem;
+  }
+
+  .admin-login-security-note {
+    max-width: 360px;
+    margin-top: 0.9rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+}
+
+/* Surgical login fix: balanced desktop login proportions */
+@media (min-width: 992px) {
+  .admin-page:has(#loginPanel.admin-login-shell:not(.d-none)) .admin-panel {
+    width: min(100%, 920px);
+  }
+
+  #loginPanel.admin-login-shell {
+    width: min(100%, 900px);
+    max-width: 900px !important;
+    min-height: 500px;
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+  }
+
+  .admin-login-art-panel,
+  .admin-login-art-image {
+    min-height: 500px;
+  }
+
+  .admin-login-form-panel {
+    min-height: 500px;
+    padding: 1.5rem 2rem;
+  }
+
+  .admin-login-form-inner {
+    width: min(100%, 345px);
+  }
+}

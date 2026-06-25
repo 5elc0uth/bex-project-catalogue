@@ -2202,6 +2202,7 @@ function showLoginMessage(message, type) {
         messageElement = document.createElement("div");
         messageElement.id = "loginMessage";
         messageElement.setAttribute("role", "alert");
+        messageElement.setAttribute("aria-live", "polite");
         loginForm.insertAdjacentElement("beforebegin", messageElement);
     }
 
@@ -2213,7 +2214,7 @@ function showLoginMessage(message, type) {
 
     messageElement.textContent = message;
     messageElement.className = `admin-login-message admin-login-message--${type}`;
-    messageElement.classList.remove("d-none");
+    messageElement.setAttribute("aria-hidden", "false");
 
     if (type === "success") {
         loginMessageHideTimer = window.setTimeout(() => {
@@ -2230,8 +2231,10 @@ function clearLoginMessage() {
     }
 
     window.clearTimeout(loginMessageHideTimer);
-    messageElement.classList.add("d-none");
+
     messageElement.textContent = "";
+    messageElement.className = "admin-login-message admin-login-message--reserved";
+    messageElement.setAttribute("aria-hidden", "true");
 }
 
 
