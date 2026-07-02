@@ -3,6 +3,7 @@ const projectSearchInput = document.getElementById("projectSearchInput");
 const projectSortSelect = document.getElementById("projectSortSelect");
 const projectEmptyState = document.getElementById("projectEmptyState");
 const projectResultSummary = document.getElementById("projectResultSummary");
+const projectCategoryFilters = document.getElementById("projectCategoryFilters");
 const currentYear = document.getElementById("currentYear");
 const PROJECT_PLACEHOLDER_IMAGE =
   "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22450%22%20viewBox%3D%220%200%20800%20450%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22%23EEF2F7%22/%3E%3Crect%20x%3D%22264%22%20y%3D%22168%22%20width%3D%22272%22%20height%3D%22114%22%20rx%3D%2224%22%20fill%3D%22%23FFFFFF%22/%3E%3Ccircle%20cx%3D%22328%22%20cy%3D%22225%22%20r%3D%2226%22%20fill%3D%22%23F2B705%22/%3E%3Cpath%20d%3D%22M379%20244L414%20209L444%20239L464%20219L501%20256H379V244Z%22%20fill%3D%22%23123C69%22/%3E%3Ctext%20x%3D%22400%22%20y%3D%22325%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%230B1F3A%22%3EPreview%20Unavailable%3C/text%3E%3C/svg%3E";
@@ -27,6 +28,7 @@ const projectScreenshotCache = new Map();
 const preloadedProjectImages = new Set();
 let projectControlsInitialised = false;
 let publicRealtimeRefreshTimer = null;
+let activeProjectCategoryFilter = "all";
 
 currentYear.textContent = new Date().getFullYear();
 
@@ -121,7 +123,7 @@ async function loadProjects() {
   projectGrid.innerHTML = createProjectLoadingSkeleton();
 
   try {
-    const supabaseProjects = await loadProjectsFromSupabase();
+    const supabaseProjects = await withProjectLoadTimeout(loadProjectsFromSupabase(), 3500);
 
     if (supabaseProjects.length > 0) {
       allProjects = supabaseProjects;
@@ -130,6 +132,7 @@ async function loadProjects() {
     }
 
     setupProjectControls();
+    renderProjectCategoryFilters();
     applyProjectFiltersAndSort();
   } catch (error) {
     console.error(error);
@@ -137,6 +140,7 @@ async function loadProjects() {
     try {
       allProjects = await loadProjectsFromJson();
       setupProjectControls();
+      renderProjectCategoryFilters();
       applyProjectFiltersAndSort();
     } catch (fallbackError) {
       projectGrid.innerHTML = `
@@ -150,6 +154,17 @@ async function loadProjects() {
       console.error(fallbackError);
     }
   }
+}
+
+function withProjectLoadTimeout(projectLoadPromise, timeoutMs) {
+  return Promise.race([
+    projectLoadPromise,
+    new Promise((resolve) => {
+      window.setTimeout(() => {
+        resolve([]);
+      }, timeoutMs);
+    })
+  ]);
 }
 
 async function loadProjectsFromJson() {
@@ -270,6 +285,20 @@ function setupProjectControls() {
   projectSearchInput.addEventListener("input", applyProjectFiltersAndSort);
   projectSortSelect.addEventListener("change", applyProjectFiltersAndSort);
 
+  if (projectCategoryFilters) {
+    projectCategoryFilters.addEventListener("click", (event) => {
+      const filterButton = event.target.closest("[data-project-category-filter]");
+
+      if (!filterButton) {
+        return;
+      }
+
+      activeProjectCategoryFilter = filterButton.dataset.projectCategoryFilter;
+      renderProjectCategoryFilters();
+      applyProjectFiltersAndSort();
+    });
+  }
+
   projectGrid.addEventListener("click", (event) => {
     const imageButton = event.target.closest(".project-image-button");
 
@@ -337,6 +366,14 @@ function applyProjectFiltersAndSort() {
   const searchTerm = projectSearchInput.value.trim().toLowerCase();
 
   const filteredProjects = allProjects.filter((project) => {
+    const categoryMatches =
+      activeProjectCategoryFilter === "all" ||
+      project.category === activeProjectCategoryFilter;
+
+    if (!categoryMatches) {
+      return false;
+    }
+
     const searchableText = [
       project.title,
       project.shortDescription,
@@ -355,6 +392,55 @@ function applyProjectFiltersAndSort() {
   renderProjects(sortedProjects);
 }
 
+function renderProjectCategoryFilters() {
+  if (!projectCategoryFilters) {
+    return;
+  }
+
+  const categories = Array.from(
+    new Set(
+      allProjects
+        .map((project) => project.category)
+        .filter((category) => String(category || "").trim() !== "")
+    )
+  ).sort(compareProjectText);
+
+  const activeCategoryExists =
+    activeProjectCategoryFilter === "all" ||
+    categories.includes(activeProjectCategoryFilter);
+
+  if (!activeCategoryExists) {
+    activeProjectCategoryFilter = "all";
+  }
+
+  const filterButtons = [
+    createProjectCategoryFilterButton("all", "All", allProjects.length),
+    ...categories.map((category) => {
+      const projectCount = allProjects.filter((project) => project.category === category).length;
+
+      return createProjectCategoryFilterButton(category, category, projectCount);
+    })
+  ];
+
+  projectCategoryFilters.innerHTML = filterButtons.join("");
+}
+
+function createProjectCategoryFilterButton(categoryValue, label, projectCount) {
+  const isActive = activeProjectCategoryFilter === categoryValue;
+
+  return `
+    <button
+      type="button"
+      class="project-category-filter ${isActive ? "is-active" : ""}"
+      data-project-category-filter="${escapeHtml(categoryValue)}"
+      aria-pressed="${isActive ? "true" : "false"}"
+    >
+      <span>${escapeHtml(label)}</span>
+      <strong>${projectCount}</strong>
+    </button>
+  `;
+}
+
 function updateProjectResultSummary(visibleCount) {
   if (!projectResultSummary) {
     return;
@@ -362,13 +448,14 @@ function updateProjectResultSummary(visibleCount) {
 
   const totalCount = allProjects.length;
   const hasSearchTerm = projectSearchInput.value.trim() !== "";
+  const hasCategoryFilter = activeProjectCategoryFilter !== "all";
 
   if (totalCount === 0) {
     projectResultSummary.textContent = "No completed projects are currently available.";
     return;
   }
 
-  if (hasSearchTerm) {
+  if (hasSearchTerm || hasCategoryFilter) {
     projectResultSummary.textContent = `Showing ${visibleCount} of ${totalCount} completed project${totalCount === 1 ? "" : "s"}.`;
     return;
   }

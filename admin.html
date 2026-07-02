@@ -144,30 +144,31 @@
                         <div>
                             <!-- <strong>BEX</strong> -->
                             <strong>Admin</strong>
-                            <span>Dashboard</span>
+                            <!-- <span>Dashboard</span> -->
                         </div>
                     </div>
 
                     <nav class="admin-sidebar-nav" aria-label="Catalogue actions">
                         <span class="admin-sidebar-section-label">Catalogue</span>
 
-                        <a href="#adminProjectList" class="admin-sidebar-link is-active">
+                        <a href="#adminProjectList" class="admin-sidebar-link is-active" data-admin-sidebar-action="projects">
                             <i class="bi bi-kanban" aria-hidden="true"></i>
                             <span>Projects</span>
                         </a>
 
-                        <button type="button" id="openNewProjectModalButton" class="admin-sidebar-link">
+                        <button type="button" id="openNewProjectModalButton" class="admin-sidebar-link"
+                            data-admin-sidebar-action="add">
                             <i class="bi bi-plus-square" aria-hidden="true"></i>
                             <span>Add Project</span>
                         </button>
 
-                        <a href="index.html" class="admin-sidebar-link">
+                        <a href="index.html" class="admin-sidebar-link" data-admin-sidebar-action="catalogue">
                             <i class="bi bi-card-list" aria-hidden="true"></i>
                             <span>View Catalogue</span>
                         </a>
 
                         <button type="button" id="openRecycleBinButton"
-                            class="admin-sidebar-link admin-sidebar-link--danger">
+                            class="admin-sidebar-link admin-sidebar-link--danger" data-admin-sidebar-action="recycle">
                             <i class="bi bi-trash3" aria-hidden="true"></i>
                             <span>Recycle Bin</span>
                         </button>
@@ -195,11 +196,19 @@
                             </p>
                         </div>
 
-                        <button id="logoutButton" type="button"
-                            class="project-action-link project-action-link--secondary">
-                            <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
-                            <span>Sign out</span>
-                        </button>
+                        <div class="admin-topbar-actions">
+                            <button id="adminThemeToggle" type="button"
+                                class="admin-theme-toggle" aria-label="Switch to dark mode">
+                                <i class="bi bi-moon-stars" aria-hidden="true"></i>
+                                <span>Dark</span>
+                            </button>
+
+                            <button id="logoutButton" type="button"
+                                class="project-action-link project-action-link--secondary">
+                                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                                <span>Sign out</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="admin-card admin-dashboard-card admin-dashboard-main">

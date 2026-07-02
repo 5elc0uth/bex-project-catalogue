@@ -14,6 +14,7 @@ const confirmAdminPasswordInput = document.getElementById("confirmAdminPassword"
 const cancelPasswordResetButton = document.getElementById("cancelPasswordResetButton");
 const adminPasswordInput = document.getElementById("adminPassword");
 const adminPasswordToggle = document.getElementById("adminPasswordToggle");
+const adminThemeToggle = document.getElementById("adminThemeToggle");
 const saveProjectButton = document.getElementById("saveProjectButton");
 const adminProjectList = document.getElementById("adminProjectList");
 const refreshProjectsButton = document.getElementById("refreshProjectsButton");
@@ -48,11 +49,13 @@ const selectRecycleBinProjectsCheckbox = document.getElementById("selectRecycleB
 const selectedRecycleProjectsCount = document.getElementById("selectedRecycleProjectsCount");
 const bulkRestoreProjectsButton = document.getElementById("bulkRestoreProjectsButton");
 const clearSelectedRecycleProjectsButton = document.getElementById("clearSelectedRecycleProjectsButton");
+const adminSidebarLinks = document.querySelectorAll("[data-admin-sidebar-action]");
 
 let editingProjectId = null;
 let adminMessageHideTimer = null;
 let loginMessageHideTimer = null;
 const rememberedAdminEmailStorageKey = "bexCatalogueAdminRememberedEmail";
+const adminThemeStorageKey = "bexCatalogueAdminTheme";
 let currentlyRenderedAdminProjects = [];
 const selectedProjectIds = new Set();
 let currentlyRenderedRecycleProjects = [];
@@ -81,10 +84,16 @@ if (newProjectModal && openNewProjectModalButton && closeNewProjectModalButton) 
             resetProjectModal();
         }
     });
+
+    newProjectModal.addEventListener("close", () => {
+        setAdminSidebarActiveAction("projects");
+    });
 }
 
 if (recycleBinModal && openRecycleBinButton && closeRecycleBinButton) {
     openRecycleBinButton.addEventListener("click", async () => {
+        setAdminSidebarActiveAction("recycle");
+
         if (recycleBinList) {
             recycleBinList.innerHTML = `
                 <p class="admin-project-empty">Loading recycle bin...</p>
@@ -111,7 +120,21 @@ if (recycleBinModal && openRecycleBinButton && closeRecycleBinButton) {
             closeDialog(recycleBinModal);
         }
     });
+
+    recycleBinModal.addEventListener("close", () => {
+        setAdminSidebarActiveAction("projects");
+    });
 }
+
+adminSidebarLinks.forEach((sidebarLink) => {
+    sidebarLink.addEventListener("click", () => {
+        const sidebarAction = sidebarLink.dataset.adminSidebarAction;
+
+        if (sidebarAction === "catalogue") {
+            setAdminSidebarActiveAction("catalogue");
+        }
+    });
+});
 
 if (selectVisibleProjectsCheckbox) {
     selectVisibleProjectsCheckbox.addEventListener("change", () => {
@@ -237,6 +260,14 @@ if (cancelPasswordResetButton) {
 }
 
 syncRememberedAdminEmail();
+initialiseAdminTheme();
+
+if (adminThemeToggle) {
+    adminThemeToggle.addEventListener("click", () => {
+        const currentTheme = document.body.dataset.adminTheme === "dark" ? "dark" : "light";
+        setAdminTheme(currentTheme === "dark" ? "light" : "dark", true);
+    });
+}
 
 function closeDialog(dialog) {
     if (!dialog) {
@@ -245,6 +276,60 @@ function closeDialog(dialog) {
 
     if (dialog.open) {
         dialog.close();
+    }
+}
+
+function setAdminSidebarActiveAction(activeAction) {
+    adminSidebarLinks.forEach((sidebarLink) => {
+        const isActive = sidebarLink.dataset.adminSidebarAction === activeAction;
+
+        sidebarLink.classList.toggle("is-active", isActive);
+
+        if (sidebarLink.tagName.toLowerCase() === "a") {
+            if (isActive) {
+                sidebarLink.setAttribute("aria-current", activeAction === "catalogue" ? "page" : "location");
+            } else {
+                sidebarLink.removeAttribute("aria-current");
+            }
+        }
+
+        if (sidebarLink.tagName.toLowerCase() === "button") {
+            sidebarLink.setAttribute("aria-pressed", isActive ? "true" : "false");
+        }
+    });
+}
+
+function initialiseAdminTheme() {
+    const savedTheme = window.localStorage.getItem(adminThemeStorageKey);
+    const preferredTheme = savedTheme === "dark" || savedTheme === "light"
+        ? savedTheme
+        : "light";
+
+    setAdminTheme(preferredTheme, false);
+}
+
+function setAdminTheme(theme, shouldPersist) {
+    const resolvedTheme = theme === "dark" ? "dark" : "light";
+    const isDarkTheme = resolvedTheme === "dark";
+
+    document.body.dataset.adminTheme = resolvedTheme;
+    document.body.classList.toggle("admin-theme-dark", isDarkTheme);
+    document.body.classList.toggle("admin-theme-light", !isDarkTheme);
+
+    if (adminThemeToggle) {
+        adminThemeToggle.setAttribute(
+            "aria-label",
+            isDarkTheme ? "Switch to light mode" : "Switch to dark mode"
+        );
+
+        adminThemeToggle.setAttribute("aria-pressed", isDarkTheme ? "true" : "false");
+        adminThemeToggle.innerHTML = isDarkTheme
+            ? `<i class="bi bi-brightness-high" aria-hidden="true"></i><span>Light</span>`
+            : `<i class="bi bi-moon-stars" aria-hidden="true"></i><span>Dark</span>`;
+    }
+
+    if (shouldPersist) {
+        window.localStorage.setItem(adminThemeStorageKey, resolvedTheme);
     }
 }
 
@@ -285,6 +370,8 @@ function openProjectModal() {
 }
 
 function startAddProject() {
+    setAdminSidebarActiveAction("add");
+
     editingProjectId = null;
     projectForm.reset();
     projectDisplayOrder.value = "100";
@@ -700,6 +787,7 @@ async function showAdminPanel() {
     loginPanel.classList.add("d-none");
     projectAdminPanel.classList.remove("d-none");
     document.body.classList.remove("admin-auth-checking");
+    setAdminSidebarActiveAction("projects");
 
     await loadAdminProjects();
 }

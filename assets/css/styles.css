@@ -250,6 +250,65 @@ body {
   align-items: end;
 }
 
+.project-category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.project-category-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.45rem;
+  padding: 0.55rem 0.78rem;
+  border: 1px solid rgba(203, 213, 225, 0.95);
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 850;
+  line-height: 1;
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.05);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.project-category-filter:hover {
+  transform: translateY(-1px);
+  border-color: rgba(18, 60, 105, 0.3);
+  box-shadow: 0 12px 26px rgba(17, 24, 39, 0.08);
+}
+
+.project-category-filter strong {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.45rem;
+  height: 1.45rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background-color: #eef2f7;
+  color: #475467;
+  font-size: 0.7rem;
+  font-weight: 950;
+}
+
+.project-category-filter.is-active {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(11, 31, 58, 0.18);
+}
+
+.project-category-filter.is-active strong {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
 .project-search-form {
   min-width: 0;
 }
@@ -286,6 +345,19 @@ body {
 
   .project-sort-wrap {
     max-width: 100%;
+  }
+
+  .project-category-filters {
+    flex-wrap: nowrap;
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+    padding: 0 0.75rem 0.35rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .project-category-filter {
+    flex: 0 0 auto;
   }
 }
 
@@ -7609,3 +7681,856 @@ body {
     width: min(100%, 345px);
   }
 }
+
+/* Brand shell redesign: white public header and footer */
+body:not(.admin-page) {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 44%, #ffffff 100%);
+}
+
+body:not(.admin-page) .site-header {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(242, 183, 5, 0.16), transparent 25rem),
+    radial-gradient(circle at 8% 92%, rgba(18, 60, 105, 0.08), transparent 22rem),
+    #ffffff;
+  color: var(--color-primary);
+}
+
+body:not(.admin-page) .site-header::before {
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(11, 31, 58, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 31, 58, 0.05) 1px, transparent 1px);
+}
+
+body:not(.admin-page) .navbar {
+  border-bottom: 1px solid rgba(203, 213, 225, 0.7);
+  background-color: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+}
+
+body:not(.admin-page) .navbar .container {
+  min-height: 4.8rem;
+}
+
+body:not(.admin-page) .brand-lockup,
+body:not(.admin-page) .footer-brand {
+  gap: 0.85rem;
+  width: fit-content;
+  color: var(--color-primary);
+}
+
+body:not(.admin-page) .brand-logo-wrap,
+body:not(.admin-page) .footer-logo-wrap {
+  width: 3.55rem;
+  height: 2.45rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+body:not(.admin-page) .brand-logo,
+body:not(.admin-page) .footer-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 14px rgba(15, 23, 42, 0.09));
+}
+
+body:not(.admin-page) .brand-text,
+body:not(.admin-page) .footer-brand span:last-child {
+  color: var(--color-primary);
+  font-size: 1.02rem;
+  font-weight: 950;
+}
+
+body:not(.admin-page) .hero-section {
+  padding: clamp(3.4rem, 6vw, 5.2rem) 0 4.25rem;
+}
+
+body:not(.admin-page) .eyebrow-text {
+  color: #b08400;
+}
+
+body:not(.admin-page) .hero-title {
+  max-width: 780px;
+  color: var(--color-primary);
+  letter-spacing: 0;
+}
+
+body:not(.admin-page) .hero-description {
+  max-width: 700px;
+  color: #475467;
+}
+
+body:not(.admin-page) .project-action-link--hero-primary {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  box-shadow: 0 14px 30px rgba(242, 183, 5, 0.22);
+}
+
+body:not(.admin-page) .project-action-link--hero-primary:hover {
+  background-color: #d99e00;
+  color: var(--color-primary);
+  box-shadow: 0 18px 36px rgba(242, 183, 5, 0.26);
+}
+
+body:not(.admin-page) .project-action-link--hero-secondary {
+  border-color: rgba(18, 60, 105, 0.18);
+  background-color: #ffffff;
+  color: var(--color-primary);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+body:not(.admin-page) .project-action-link--hero-secondary:hover {
+  border-color: rgba(18, 60, 105, 0.34);
+  background-color: #f8fafc;
+  color: var(--color-primary);
+}
+
+body:not(.admin-page) .hero-preview-card {
+  width: min(100%, 420px);
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 250, 252, 0.97));
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+  backdrop-filter: none;
+}
+
+body:not(.admin-page) .hero-preview-card::before {
+  background:
+    linear-gradient(90deg, rgba(242, 183, 5, 0.14), transparent 36%),
+    linear-gradient(180deg, rgba(18, 60, 105, 0.06), transparent);
+}
+
+body:not(.admin-page) .hero-preview-card:hover {
+  border-color: rgba(18, 60, 105, 0.18);
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.16);
+}
+
+body:not(.admin-page) .hero-preview-header {
+  border-bottom-color: rgba(203, 213, 225, 0.84);
+}
+
+body:not(.admin-page) .hero-preview-title,
+body:not(.admin-page) .hero-preview-feature strong {
+  color: var(--color-primary);
+}
+
+body:not(.admin-page) .hero-preview-feature {
+  border: 1px solid rgba(203, 213, 225, 0.78);
+  background-color: #ffffff;
+}
+
+body:not(.admin-page) .hero-preview-feature .feature-label {
+  color: #b08400;
+}
+
+body:not(.admin-page) .hero-preview-mini-card {
+  border: 1px solid rgba(203, 213, 225, 0.72);
+  background-color: #f8fafc;
+}
+
+body:not(.admin-page) .hero-preview-mini-card:hover {
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+}
+
+body:not(.admin-page) .hero-preview-footer span {
+  border: 1px solid rgba(18, 60, 105, 0.12);
+  background-color: #eef4fb;
+  color: var(--color-secondary);
+}
+
+body:not(.admin-page) .catalogue-section {
+  border-top: 1px solid rgba(203, 213, 225, 0.72);
+  background:
+    linear-gradient(180deg, #f8fafc 0%, #ffffff 16rem);
+}
+
+body:not(.admin-page) .site-footer {
+  border-top: 1px solid rgba(203, 213, 225, 0.82);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(242, 183, 5, 0.12), transparent 19rem),
+    #ffffff;
+  color: #475467;
+}
+
+body:not(.admin-page) .footer-main {
+  border-bottom: 1px solid rgba(203, 213, 225, 0.82);
+}
+
+body:not(.admin-page) .footer-description,
+body:not(.admin-page) .footer-bottom {
+  color: #475467;
+}
+
+body:not(.admin-page) .footer-heading {
+  color: #b08400;
+}
+
+body:not(.admin-page) .footer-links a {
+  color: var(--color-primary);
+}
+
+body:not(.admin-page) .footer-links a:hover {
+  color: var(--color-secondary);
+}
+
+body:not(.admin-page) .footer-status-list span {
+  border: 1px solid rgba(18, 60, 105, 0.12);
+  background-color: #eef4fb;
+  color: var(--color-secondary);
+}
+
+@media (max-width: 767.98px) {
+  body:not(.admin-page) .navbar .container {
+    min-height: 4.5rem;
+  }
+
+  body:not(.admin-page) .hero-section {
+    padding: 3.25rem 0 3.5rem;
+  }
+}
+
+/* Admin dashboard brand shell redesign */
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) {
+  background:
+    radial-gradient(circle at 94% 8%, rgba(242, 183, 5, 0.13), transparent 24rem),
+    radial-gradient(circle at 4% 92%, rgba(18, 60, 105, 0.08), transparent 22rem),
+    #f8fafc;
+  color: var(--color-primary);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-shell {
+  min-height: 100dvh;
+  padding: clamp(1rem, 2.25vw, 1.75rem);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-panel {
+  width: min(100%, 1440px);
+  max-width: 1440px;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-shell {
+  gap: 1.25rem;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-sidebar {
+  border-color: rgba(203, 213, 225, 0.92);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98));
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.09);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card {
+  border-color: rgba(203, 213, 225, 0.92);
+  background-color: #ffffff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-logo-wrap {
+  width: 3.2rem;
+  height: 2.35rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-logo {
+  filter: drop-shadow(0 8px 14px rgba(15, 23, 42, 0.08));
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card strong,
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card span {
+  color: var(--color-primary);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card span {
+  color: #667085;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-section-label {
+  color: #98a2b3;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-link {
+  color: #475467;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-link:hover {
+  background-color: #eef4fb;
+  color: var(--color-primary);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-link.is-active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(11, 31, 58, 0.18);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-link.is-active::before {
+  background-color: var(--color-accent);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-link--danger:hover {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-mini-status {
+  border-color: rgba(34, 197, 94, 0.18);
+  background-color: #ecfdf3;
+  color: #116b39;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-mini-status strong {
+  color: #116b39;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-content {
+  gap: 1.15rem;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar {
+  padding: 0.35rem 0.2rem 0.1rem;
+  color: var(--color-primary);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar .admin-dashboard-title,
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar .admin-dashboard-title span:last-child {
+  color: var(--color-primary);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar .admin-dashboard-icon {
+  border-color: rgba(18, 60, 105, 0.14);
+  background-color: #ffffff;
+  color: var(--color-primary);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar p {
+  color: #667085;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar #logoutButton {
+  border-color: rgba(203, 213, 225, 0.95);
+  background-color: #ffffff;
+  color: var(--color-primary);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.07);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar #logoutButton:hover {
+  border-color: rgba(18, 60, 105, 0.25);
+  background-color: #f8fafc;
+  color: var(--color-primary);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card {
+  overflow: hidden;
+  border-color: rgba(203, 213, 225, 0.92);
+  background:
+    radial-gradient(circle at 96% 4%, rgba(242, 183, 5, 0.1), transparent 20rem),
+    #ffffff;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-section-kicker {
+  background: transparent;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-stat-card {
+  border-color: rgba(203, 213, 225, 0.92);
+  background-color: #ffffff;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-stat-card::after {
+  opacity: 0.82;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-manager {
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.66), rgba(255, 255, 255, 0));
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-controls,
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-bulk-action-bar {
+  border-color: rgba(203, 213, 225, 0.92);
+  background-color: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-search-input,
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-sort-select,
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-view-toggle {
+  background-color: #ffffff;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-view-button.is-active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+@media (max-width: 991.98px) {
+  .admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-shell {
+    padding: 0.75rem;
+  }
+
+  .admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-sidebar,
+  .admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card {
+    border-radius: 1rem;
+  }
+}
+
+/* Brand lockup spacing refinement */
+body:not(.admin-page) .brand-lockup,
+body:not(.admin-page) .footer-brand {
+  gap: 0.42rem;
+}
+
+body:not(.admin-page) .brand-logo-wrap,
+body:not(.admin-page) .footer-logo-wrap {
+  width: 2.95rem;
+  height: 2.2rem;
+}
+
+body:not(.admin-page) .brand-text,
+body:not(.admin-page) .footer-brand span:last-child {
+  transform: translateX(-0.08rem);
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-width: 0;
+  min-height: 2.55rem;
+  gap: 0.38rem;
+  padding: 0.35rem 0.5rem;
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.55rem;
+  height: 2rem;
+  line-height: 0;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card strong {
+  font-size: 1rem;
+  line-height: 1;
+  transform: none;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card span:not(.admin-sidebar-logo-wrap) {
+  display: none;
+}
+
+@media (max-width: 575.98px) {
+  body:not(.admin-page) .brand-lockup,
+  body:not(.admin-page) .footer-brand {
+    gap: 0.35rem;
+  }
+
+  body:not(.admin-page) .brand-logo-wrap,
+  body:not(.admin-page) .footer-logo-wrap {
+    width: 2.75rem;
+    height: 2rem;
+  }
+}
+
+/* Admin theme toggle */
+.admin-topbar-actions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.admin-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.65rem;
+  padding: 0.62rem 0.9rem;
+  border: 1px solid rgba(203, 213, 225, 0.95);
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.07);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.admin-theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(18, 60, 105, 0.25);
+  background-color: #f8fafc;
+}
+
+.admin-theme-toggle i {
+  font-size: 0.95rem;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar #logoutButton {
+  min-height: 2.65rem;
+}
+
+@media (max-width: 767.98px) {
+  .admin-topbar-actions {
+    width: 100%;
+  }
+
+  .admin-theme-toggle,
+  .admin-dashboard-topbar #logoutButton {
+    flex: 1 1 0;
+  }
+}
+
+/* Admin dark mode */
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(242, 183, 5, 0.12), transparent 24rem),
+    radial-gradient(circle at 5% 90%, rgba(59, 130, 246, 0.13), transparent 22rem),
+    #07182f;
+  color: #e5edf7;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-sidebar,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card {
+  border-color: rgba(148, 163, 184, 0.24);
+  background:
+    radial-gradient(circle at top right, rgba(242, 183, 5, 0.08), transparent 18rem),
+    linear-gradient(180deg, #0b1f3a 0%, #07182f 100%);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card strong,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar .admin-dashboard-title,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar .admin-dashboard-title span:last-child,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-manager-header h2,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-title-row h3 {
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar p,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-manager-header p,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-section-label {
+  color: rgba(226, 232, 240, 0.72);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar .admin-dashboard-icon,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-theme-toggle,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar #logoutButton,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-stat-card,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-controls,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-bulk-action-bar,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item {
+  border-color: rgba(148, 163, 184, 0.24);
+  background-color: rgba(255, 255, 255, 0.065);
+  color: #e5edf7;
+  box-shadow: none;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-theme-toggle:hover,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-topbar #logoutButton:hover {
+  border-color: rgba(226, 232, 240, 0.36);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-link {
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-link.is-active {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-mini-status {
+  border-color: rgba(34, 197, 94, 0.24);
+  background-color: rgba(34, 197, 94, 0.12);
+  color: #bbf7d0;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-mini-status strong {
+  color: #bbf7d0;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-search-input,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-sort-select,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-view-toggle,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card #refreshProjectsButton {
+  border-color: rgba(148, 163, 184, 0.28);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #e5edf7;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-search-input::placeholder {
+  color: rgba(226, 232, 240, 0.58);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-view-button {
+  color: rgba(226, 232, 240, 0.76);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-view-button.is-active {
+  background-color: #ffffff;
+  color: var(--color-primary);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-media {
+  border-color: rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Dark mode contrast correction */
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card > div {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card strong {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  line-height: 1;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.2));
+  opacity: 0.98;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-section-kicker {
+  background: #07182f;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-manager {
+  border-top-color: rgba(148, 163, 184, 0.22);
+  background:
+    radial-gradient(circle at top right, rgba(242, 183, 5, 0.08), transparent 18rem),
+    linear-gradient(180deg, #0a1d36 0%, #07182f 100%);
+  color: #e5edf7;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-manager-header h2 {
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-manager-header p,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-meta,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-description-line {
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-controls,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-bulk-action-bar {
+  border-color: rgba(148, 163, 184, 0.25);
+  background-color: rgba(7, 24, 47, 0.86);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-search-input,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-sort-select,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-view-toggle,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card #refreshProjectsButton,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) #bulkProjectStatusSelect {
+  border-color: rgba(148, 163, 184, 0.34);
+  background-color: #0d2745;
+  color: #f8fafc;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-search-input::placeholder {
+  color: rgba(226, 232, 240, 0.68);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-sort-wrap label,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-bulk-select-all,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-bulk-count {
+  color: rgba(226, 232, 240, 0.86);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item {
+  border-color: rgba(148, 163, 184, 0.24);
+  background-color: #0c233f;
+  color: #e5edf7;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover {
+  border-color: rgba(242, 183, 5, 0.36);
+  background-color: #102b4d;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-title-row h3,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-list--list .admin-project-title-row h3 {
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-actions .admin-small-link,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-link-row .admin-small-link {
+  border-color: rgba(148, 163, 184, 0.26);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-actions .admin-small-link:hover,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-project-link-row .admin-small-link:hover {
+  border-color: rgba(242, 183, 5, 0.4);
+  background-color: rgba(255, 255, 255, 0.13);
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .project-status--in-progress {
+  background-color: rgba(242, 183, 5, 0.18);
+  color: #ffe08a;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .project-status--completed {
+  background-color: rgba(34, 197, 94, 0.16);
+  color: #bbf7d0;
+}
+
+/* Admin brand and project row final polish */
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card {
+  display: grid;
+  grid-template-columns: 2.55rem auto;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 2.4rem;
+  padding: 0.28rem 0.45rem;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-logo-wrap {
+  display: grid;
+  place-items: center;
+  width: 2.55rem;
+  height: 2.25rem;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-logo {
+  display: block;
+  width: 2.2rem;
+  height: 2.2rem;
+  object-fit: contain;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card > div {
+  display: flex;
+  align-items: center;
+  min-height: 2.25rem;
+}
+
+.admin-page:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-sidebar-brand-card strong {
+  display: block;
+  min-height: auto;
+  color: var(--color-primary);
+  font-size: 1rem;
+  line-height: 1;
+  transform: translateY(0.04rem);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item {
+  border-color: rgba(203, 213, 225, 0.88);
+  background-color: #ffffff;
+  color: var(--color-primary);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.16);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item .admin-project-title-row h3,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item .admin-project-title-row a,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item .admin-project-meta,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item .admin-project-description-line {
+  color: var(--color-primary);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item .admin-project-meta {
+  color: #667085;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item .admin-project-link-row .admin-small-link,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item .admin-project-actions .admin-small-link {
+  border-color: rgba(203, 213, 225, 0.95);
+  background-color: #ffffff;
+  color: var(--color-primary);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item .admin-project-badge {
+  background-color: #eef4fb;
+  color: var(--color-primary);
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover {
+  border-color: rgba(242, 183, 5, 0.48);
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .admin-project-title-row h3,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .admin-project-title-row a,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .admin-project-meta,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .admin-project-description-line {
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .admin-project-link-row .admin-small-link,
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .admin-project-actions .admin-small-link {
+  border-color: rgba(255, 255, 255, 0.32);
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .admin-project-badge {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .project-status--in-progress {
+  background-color: rgba(242, 183, 5, 0.22);
+  color: #ffe08a;
+}
+
+.admin-page.admin-theme-dark:has(#projectAdminPanel.admin-dashboard-shell:not(.d-none)) .admin-dashboard-card .admin-project-item:hover .project-status--completed {
+  background-color: rgba(34, 197, 94, 0.18);
+  color: #bbf7d0;
+}
+

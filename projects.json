@@ -193,11 +193,11 @@
     "status": "In Progress",
     "repositoryUrl": "https://github.com/Bex-Labs/School-management-web-app.git",
     "liveUrl": "#",
-"imageUrl": "assets/images/schoolmgt-landing.jpeg",
+    "imageUrl": "assets/images/01-schoolmgt-landing.jpeg",
   "imageUrls": [
-    "assets/images/schoolmgt-landing.jpeg",
-    "assets/images/schoolmgt-inn 01.jpeg",
-    "assets/images/schoolmgt-inn 02.png"
+    "assets/images/01-schoolmgt-landing.jpeg",
+    "assets/images/02-schoolmgt-inn.png",
+    "assets/images/03-schoolmgt-inn.jpeg"
   ]
   }
 ]
